@@ -9,3 +9,6 @@
 /build/
 /vendor/
 /bin/
+/angular/node_modules
+/angular/e2e
+/.idea
