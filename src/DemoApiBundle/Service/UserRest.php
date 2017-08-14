@@ -10,18 +10,55 @@ namespace DemoApiBundle\Service;
 
 
 use DemoApiBundle\Entity\User;
+use DemoApiBundle\Repository\UserRepository;
 
 class UserRest
 {
-    public $user;
+    /**
+     * @var UserRepository $userRepository
+     */
+    public $userRepository;
+    
 
-    public function __construct(User $user)
+    public function __construct(UserRepository $userRepository)
     {
-        $this->user = $user;
+        $this->userRepository = $userRepository;
     }
 
-    public function addUser()
+    /**
+     * @return array
+     */
+    public function getAllUser()
     {
+        return $this->userRepository->findAll();
+    }
 
+    /**
+     * @param $id
+     *
+     * @return null|object
+     */
+    public function getUserById($id)
+    {
+        return $this->userRepository->find($id);
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return User
+     */
+    public function create(User $user)
+    {
+        $this->userRepository->create($user);
+    }
+
+    public function edit(User $user)
+    {
+        $this->userRepository->edit($user);
+    }
+    public function delete(User $user)
+    {
+        $this->userRepository->delete($user);
     }
 }

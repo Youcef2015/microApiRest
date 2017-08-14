@@ -8,10 +8,6 @@ services:
     #    class: AppBundle\Directory\ClassName
     #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
 
-    users.class:
-        class: DemoApiBundle\Entity\Users
-        shared: false
-
     user.rest:
-        class: DemoApiBundle\Service\UsersRest
-        arguments: ["@users.class"]
+        class: DemoApiBundle\Service\UserRest
+        arguments: ["@=service('doctrine.orm.entity_manager').getRepository('DemoApiBundle:User')"]
