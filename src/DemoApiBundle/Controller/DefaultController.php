@@ -7,6 +7,7 @@ use DemoApiBundle\Service\UserRest;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Util\Codes;
 
@@ -59,20 +60,13 @@ class DefaultController extends FOSRestController
      * @throws \Exception
      * @internal param array $data
      */
-    public function addUserAction()
+    public function addUserAction(User $user)
     {
         try {
             /**
              * @var $userRest UserRest
              */
             $userRest = $this->container->get('user.rest');
-
-            $user = new User();
-            $user->setFirstName('test api first name')
-                 ->setLastName('test api last name')
-                 ->setPassword('test api password')
-                 ->setUserName('test api username');
-
             $userRest->create($user);
 
             $routeOptions = array(

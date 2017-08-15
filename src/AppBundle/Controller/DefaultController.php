@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Post;
+use DemoApiBundle\Form\UserType;
 use Doctrine\ORM\Query\AST\Join;
 use Doctrine\ORM\Query\Lexer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -21,6 +22,24 @@ class DefaultController extends Controller
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', array(
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
+        ));
+    }
+
+    /**
+     * @Route("/add/user", name="homepage")
+     */
+    public function addUserAction(Request $request)
+    {
+        $form = $this->createForm(new UserType());
+
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
+
+        }
+        return $this->render('default/add.html.twig', array(
+            'form' => $form->createView(),
         ));
     }
 
